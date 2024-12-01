@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -12,8 +11,6 @@ import (
 var input string
 
 func main() {
-	re := regexp.MustCompile(`\s+`)
-
 	lines := strings.Split(input, "\n")
 	left := make([]int, len(lines))
 	right := make([]int, len(lines))
@@ -22,31 +19,28 @@ func main() {
 		if len(line) == 0 {
 			continue
 		}
-		part := re.Split(lines[i], 2)
+		part := strings.Split(line, "   ")
 
-		l, _ := strconv.Atoi(part[0])
-		left[i] = l
-		r, _ := strconv.Atoi(part[1])
-		right[i] = r
+		left[i], _ = strconv.Atoi(part[0])
+		right[i], _ = strconv.Atoi(part[1])
 	}
 
-	// sort.Ints(left)
-	// sort.Ints(right)
+	// Part 1
+	//sort.Ints(left)
+	//sort.Ints(right)
+	//sum := 0
+	//for i := 0; i < len(lines); i++ {
+	//	diff := left[i] - right[i]
+	//	if diff < 0 {
+	//		diff *= -1
+	//	}
+	//	sum += diff
+	//}
+	//fmt.Println(sum)
 
-	// sum := 0
-	// for i := 0; i < len(lines); i++ {
-	// 	diff := left[i] - right[i]
-	// 	if diff < 0 {
-	// 		diff *= -1
-	// 	}
-	// 	sum += diff
-	// }
-	// fmt.Println(sum)
-
-	// iterate through the left array
+	// Part 2
 	simSum := 0
 	for i := 0; i < len(left); i++ {
-		// Count the number of elements of left[i] in the right array
 		count := 0
 		for j := 0; j < len(right); j++ {
 			if left[i] == right[j] {
