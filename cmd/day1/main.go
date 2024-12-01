@@ -1,22 +1,18 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
 )
 
+//go:embed input.txt
+var input string
+
 func main() {
 	re := regexp.MustCompile(`\s+`)
-
-	file, err := os.ReadFile("cmd/day1/input.txt")
-	if err != nil {
-		fmt.Println("Error reading file")
-		return
-	}
-	input := string(file)
 
 	lines := strings.Split(input, "\n")
 	left := make([]int, len(lines))
