@@ -1,6 +1,7 @@
 package main
 
 import (
+	utils "aoc-2024"
 	_ "embed"
 	"fmt"
 	"strconv"
@@ -16,11 +17,7 @@ func main() {
 	right := make([]int, len(lines))
 
 	for i, line := range lines {
-		if len(line) == 0 {
-			continue
-		}
 		part := strings.Split(line, "   ")
-
 		left[i], _ = strconv.Atoi(part[0])
 		right[i], _ = strconv.Atoi(part[1])
 	}
@@ -40,16 +37,10 @@ func main() {
 
 	// Part 2
 	simSum := 0
-	for i := 0; i < len(left); i++ {
-		count := 0
-		for j := 0; j < len(right); j++ {
-			if left[i] == right[j] {
-				count++
-			}
-		}
-
-		similarity := left[i] * count
-		simSum += similarity
+	leftCount := utils.Counter(left)
+	rightCount := utils.Counter(right)
+	for k, v := range leftCount {
+		simSum += k * v * rightCount[k]
 	}
 	fmt.Println(simSum)
 }
