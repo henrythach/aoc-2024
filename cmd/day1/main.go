@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"regexp"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -23,8 +22,10 @@ func main() {
 	left := make([]int, len(lines))
 	right := make([]int, len(lines))
 	for i := 0; i < len(lines); i++ {
+		if len(lines[i]) == 0 {
+			continue
+		}
 		part := re.Split(lines[i], 2)
-		fmt.Println(part)
 
 		l, _ := strconv.Atoi(part[0])
 		left[i] = l
@@ -32,16 +33,32 @@ func main() {
 		right[i] = r
 	}
 
-	sort.Ints(left)
-	sort.Ints(right)
+	// sort.Ints(left)
+	// sort.Ints(right)
 
-	sum := 0
-	for i := 0; i < len(lines); i++ {
-		diff := left[i] - right[i]
-		if diff < 0 {
-			diff *= -1
+	// sum := 0
+	// for i := 0; i < len(lines); i++ {
+	// 	diff := left[i] - right[i]
+	// 	if diff < 0 {
+	// 		diff *= -1
+	// 	}
+	// 	sum += diff
+	// }
+	// fmt.Println(sum)
+
+	// iterate through the left array
+	simSum := 0
+	for i := 0; i < len(left); i++ {
+		// Count the number of elements of left[i] in the right array
+		count := 0
+		for j := 0; j < len(right); j++ {
+			if left[i] == right[j] {
+				count++
+			}
 		}
-		sum += diff
+
+		similarity := left[i] * count
+		simSum += similarity
 	}
-	fmt.Println(sum)
+	fmt.Println(simSum)
 }
