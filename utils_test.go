@@ -45,3 +45,23 @@ func TestSplitLinesToInts(t *testing.T) {
 		}
 	})
 }
+
+func TestAbs(t *testing.T) {
+	t.Run("converts negative to positive", func(t *testing.T) {
+		got := Abs(-10)
+		want := 10
+
+		if got != want {
+			t.Errorf("got %q, want %q", got, want)
+		}
+	})
+
+	t.Run("keeps positive the same", func(t *testing.T) {
+		got := Abs(10)
+		want := 10
+
+		if got != want {
+			t.Errorf("got %q, want %q", got, want)
+		}
+	})
+}
